@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>三国：冰河时代 · 时间线活动卡</title>
+  <style>
+    :root {
+      --ink:#202733;
+      --muted:#667286;
+      --line:#dbe2ea;
+      --bg:#f7f8f6;
+      --panel:#ffffff;
+      --head:#26384a;
+      --blue:#2c668a;
+      --green:#2d765c;
+      --gold:#a87927;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+      line-height:1.65;
+    }
+    header {
+      min-height:380px;
+      padding:56px 7vw 42px;
+      background:
+        linear-gradient(90deg,rgba(25,34,44,.92),rgba(25,34,44,.68)),
+        url("assets/screens/img_029.jpg") center 30%/cover no-repeat;
+      color:#fff;
+      display:flex;
+      align-items:flex-end;
+    }
+    .hero { max-width:1040px; }
+    .eyebrow { color:#ecd18d; font-weight:800; letter-spacing:2px; font-size:14px; }
+    h1 { margin:10px 0 12px; font-size:44px; line-height:1.15; letter-spacing:0; }
+    .hero p { max-width:820px; margin:0; color:#e8edf2; font-size:17px; }
+    nav {
+      position:sticky; top:0; z-index:10;
+      display:flex; gap:16px; flex-wrap:wrap;
+      padding:10px 7vw;
+      background:rgba(255,255,255,.94);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(10px);
+    }
+    nav a { color:var(--ink); text-decoration:none; font-weight:800; font-size:14px; }
+    main { padding:32px 7vw 72px; }
+    section { max-width:1240px; margin:0 auto 42px; }
+    h2 { margin:0 0 16px; font-size:27px; }
+    h3 { margin:0 0 10px; font-size:20px; }
+    .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .card,.timeline-card,.note {
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:18px;
+      box-shadow:0 8px 22px rgba(32,39,51,.06);
+    }
+    .card b { display:block; font-size:28px; color:var(--blue); }
+    .card span { color:var(--muted); font-size:13px; }
+    .timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .timeline-card h3 { color:var(--blue); font-size:28px; }
+    .timeline-card p { margin:8px 0; }
+    .views { display:grid; grid-template-columns:1fr; gap:10px; margin-top:14px; }
+    .views div { background:#f0f4f2; border-left:4px solid var(--green); border-radius:4px; padding:10px 12px; }
+    .views b { display:block; }
+    .views span { color:#3a4655; font-size:14px; }
+    .legend { display:flex; gap:14px; flex-wrap:wrap; margin:0 0 12px; color:var(--muted); font-size:13px; }
+    .legend span { display:inline-flex; align-items:center; gap:6px; }
+    .legend i { width:14px; height:14px; border-radius:3px; display:inline-block; }
+    .legend .new { background:#2c668a; }
+    .legend .ongoing { background:#2d765c; }
+    .legend .trigger { background:#a87927; }
+    .legend .info { background:#7b8492; }
+    .matrix-wrap { overflow:auto; border:1px solid var(--line); border-radius:8px; background:#fff; box-shadow:0 8px 22px rgba(32,39,51,.06); }
+    table.matrix { min-width:1160px; border:0; box-shadow:none; border-radius:0; }
+    .matrix th { position:sticky; top:0; z-index:1; }
+    .matrix td { font-size:13px; }
+    .matrix-group { font-weight:800; color:var(--green); width:96px; background:#f4f8f5; }
+    .matrix-name { font-weight:800; width:150px; }
+    .matrix-note { color:var(--muted); min-width:220px; }
+    .matrix-cell { text-align:center; font-weight:800; white-space:nowrap; min-width:92px; }
+    .matrix-cell.empty { background:#fff; color:#c3c9d1; }
+    .matrix-cell.new { background:#e8f1f8; color:#174d75; }
+    .matrix-cell.ongoing { background:#e7f4ee; color:#1e664d; }
+    .matrix-cell.trigger { background:#fff4dc; color:#8a5a11; }
+    .matrix-cell.info { background:#edf0f4; color:#4e5c6d; }
+    .matrix-link { color:inherit; display:block; text-decoration:none; border-radius:4px; padding:2px 4px; }
+    .matrix-link:hover { background:rgba(255,255,255,.72); text-decoration:underline; }
+    .matrix-name .matrix-link { color:var(--ink); }
+    .time-nav { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .time-nav a {
+      display:block;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:14px 16px;
+      text-decoration:none;
+      color:var(--ink);
+      box-shadow:0 8px 18px rgba(32,39,51,.05);
+    }
+    .time-nav b { display:block; color:var(--blue); font-size:20px; }
+    .time-nav span { color:var(--muted); font-size:13px; }
+    .time-block { max-width:1320px; scroll-margin-top:70px; }
+    .time-block-title {
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:24px;
+      align-items:end;
+      margin-bottom:18px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--line);
+    }
+    .time-block-title span { color:var(--green); font-weight:800; }
+    .time-block-title h2 { margin:4px 0 0; font-size:34px; }
+    .time-block-title p { margin:0; color:#465568; }
+    .activity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .activity-card {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:18px;
+      box-shadow:0 8px 22px rgba(32,39,51,.06);
+      scroll-margin-top:76px;
+    }
+    .activity-card:target {
+      outline:3px solid rgba(44,102,138,.35);
+      box-shadow:0 12px 30px rgba(44,102,138,.2);
+    }
+    .activity-head {
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      border-bottom:1px solid var(--line);
+      padding-bottom:12px;
+      margin-bottom:12px;
+    }
+    .activity-head h3 { margin:0; color:var(--blue); }
+    .activity-head span { color:var(--muted); font-size:13px; font-weight:800; }
+    .activity-head em { font-style:normal; color:var(--green); font-weight:800; font-size:13px; text-align:right; min-width:110px; }
+    .meta { margin:0; display:grid; gap:8px; }
+    .meta div { display:grid; grid-template-columns:64px 1fr; gap:10px; }
+    .meta dt { color:var(--muted); font-weight:800; }
+    .meta dd { margin:0; }
+    .card-shots { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+    .card-shots .shot { box-shadow:none; }
+    .card-shots figcaption { padding:8px; }
+    .card-shots figcaption em { display:none; }
+    .empty-shot {
+      grid-column:1/-1;
+      border:1px dashed var(--line);
+      border-radius:8px;
+      padding:18px;
+      color:var(--muted);
+      background:#f7f9fa;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow:0 8px 22px rgba(32,39,51,.06);
+    }
+    th,td { border-bottom:1px solid var(--line); padding:12px 13px; text-align:left; vertical-align:top; }
+    th { background:var(--head); color:#fff; white-space:nowrap; }
+    td { font-size:14px; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .note h3 { color:var(--gold); }
+    .gallery-block { margin-bottom:30px; }
+    .shot-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .shot { margin:0; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; box-shadow:0 8px 20px rgba(32,39,51,.07); }
+    .shot-open { display:block; width:100%; border:0; padding:0; cursor:pointer; background:#111b25; }
+    .shot img { display:block; width:100%; aspect-ratio:9/16; object-fit:contain; background:#111b25; }
+    figcaption { padding:12px; display:grid; gap:4px; }
+    figcaption strong { font-size:15px; }
+    figcaption span { color:var(--blue); font-size:13px; font-weight:800; }
+    figcaption em { color:var(--muted); font-size:13px; font-style:normal; }
+    .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:28px; background:rgba(10,16,23,.88); z-index:20; }
+    .modal.active { display:flex; }
+    .modal-inner { width:min(94vw,980px); height:92vh; display:grid; grid-template-rows:auto 1fr; gap:10px; }
+    .modal-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .modal-title { color:#fff; font-weight:800; }
+    .modal-actions { display:flex; align-items:center; gap:8px; color:#dce6f2; font-size:13px; }
+    .modal-actions button { border:1px solid rgba(255,255,255,.28); color:#fff; background:rgba(255,255,255,.08); border-radius:6px; padding:6px 10px; cursor:pointer; }
+    .modal-actions button:hover { background:rgba(255,255,255,.16); }
+    .modal-stage { overflow:hidden; background:#111923; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none; }
+    .modal-stage.dragging { cursor:grabbing; }
+    .modal img { max-width:100%; max-height:100%; object-fit:contain; user-select:none; pointer-events:none; transform-origin:center center; }
+    footer { text-align:center; color:var(--muted); padding:30px; }
+    @media (max-width:980px) {
+      h1 { font-size:34px; }
+      .cards,.timeline,.two-col,.time-nav,.time-block-title,.activity-grid { grid-template-columns:1fr; }
+      .card-shots { grid-template-columns:repeat(2,1fr); }
+      .shot-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:560px) {
+      header { min-height:340px; padding:42px 20px 28px; }
+      main,nav { padding-left:20px; padding-right:20px; }
+      .shot-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="eyebrow">时间线 · 活动卡 · 截图证据</div>
+      <h1>三国：冰河时代<br>时间线活动卡</h1>
+      <p>以活动出现时机为主线，将截图挂到对应活动下；持续、充值后、条件触发内容单独成组，避免把图序误当成实际出现顺序。</p>
+    </div>
+  </header>
+  <nav>
+    <a href="#overview">概览</a>
+    <a href="#overview-map">概括图</a>
+    <a href="#time-index">时间索引</a>
+    <a href="#d1">首日</a>
+    <a href="#d2">第二日</a>
+    <a href="#d3">第三日</a>
+    <a href="#persistent">持续/触发</a>
+    <a href="#activities">活动清单</a>
+    <a href="#feel">主观感受</a>
+  </nav>
+  <main>
+    <section id="overview">
+      <div class="cards">
+        <div class="card"><b>3天</b><span>首日、第二日、第三日体验记录</span></div>
+        <div class="card"><b>47张</b><span>截图素材归档</span></div>
+        <div class="card"><b>21项</b><span>活动/入口卡片</span></div>
+        <div class="card"><b>10档</b><span>已记录价格/礼包类型</span></div>
+      </div>
+    </section>
+
+    <section id="overview-map">
+      <h2>活动概括图</h2>
+      
+    <div class="legend">
+      <span><i class="new"></i>新增出现</span>
+      <span><i class="ongoing"></i>持续/每日/累计</span>
+      <span><i class="trigger"></i>条件触发</span>
+      <span><i class="info"></i>信息补充</span>
+    </div>
+    <div class="matrix-wrap">
+      <table class="matrix"><thead><tr><th>类别</th><th>活动/系统</th><th>首日早期</th><th>首日中期</th><th>首日晚期/充值后</th><th>第二日</th><th>第三日</th><th>持续/条件触发</th><th>备注</th></tr></thead><tbody><tr><td class='matrix-group'>免费/活跃</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-invite">邀友同行</a></td><td class="matrix-cell new"><a class="matrix-link" href="#act-invite">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-invite">好友等级达成</a></td><td class='matrix-note'>邀请好友领元宝，后续档位要求好友达到等级</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-seven_login">七日登录</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-seven_login">新增</a></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-seven_login">持续</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-seven_login">每日登录</a></td><td class='matrix-note'>第2天貂蝉，第7天郭嘉</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-seven_task">七日任务/初出茅庐</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-seven_task">新增</a></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-seven_task">持续</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-seven_task">任务活跃</a></td><td class='matrix-note'>活跃获得貂蝉、小乔碎片等</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-pride">傲视群雄</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-pride">新增</a></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-pride">持续</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-pride">战力达标</a></td><td class='matrix-note'>冲战力获得元宝和加速道具</td></tr><tr><td class='matrix-group'>武将/抽卡</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-recruit">招贤馆/抽卡</a></td><td class="matrix-cell new"><a class="matrix-link" href="#act-recruit">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-recruit">抽卡礼包</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-recruit">抽卡次数触发</a></td><td class='matrix-note'>建造招贤馆，必得关银屏</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-first_charge">首充赵云</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-first_charge">新增</a></td><td class="matrix-cell info"><a class="matrix-link" href="#act-first_charge">次日碎片</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-first_charge">充值触发</a></td><td class='matrix-note'>任意金额必得赵云</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-daily_deal">每日特惠</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-daily_deal">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-daily_deal">每日刷新</a></td><td class='matrix-note'>6/12/18元获取郭嘉碎片等</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-cumulative">累计充值</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-cumulative">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-cumulative">累计档位</a></td><td class='matrix-note'>郭嘉、专武、传奇装备等</td></tr><tr><td class='matrix-group'>效率/资源</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-shop">建筑队列</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-shop">新增</a></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-shop">持续</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-shop">商城</a></td><td class='matrix-note'>12元建筑队列礼包</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-limited_pack">出征队列</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-limited_pack">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-limited_pack">限时礼包</a></td><td class='matrix-note'>18元出征队列礼包</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-monthly_card">月卡/周卡</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-monthly_card">新增</a></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-monthly_card">持续</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-monthly_card">长期领取</a></td><td class='matrix-note'>超级月卡、加速周卡</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-upgrade_pack">升级/资源礼包</a></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-upgrade_pack">触发</a></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-upgrade_pack">触发</a></td><td class="matrix-cell info"><a class="matrix-link" href="#act-upgrade_pack">资源礼包</a></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-upgrade_pack">等级/资源缺口</a></td><td class='matrix-note'>火炉升级、资源、经验、加速礼包</td></tr><tr><td class='matrix-group'>成长/特权</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-nobility">爵位</a></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-nobility">新增</a></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-nobility">持续</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-nobility">累计充值成长</a></td><td class='matrix-note'>爵位特权、爵位商店、每日福利、专属礼包</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-yuanbao">发展基金</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-yuanbao">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-yuanbao">火炉等级领取</a></td><td class='matrix-note'>128元，按火炉等级领取元宝</td></tr><tr><td class='matrix-group'>战令/特惠</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-special">七日尊享令</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-special">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell ongoing"><a class="matrix-link" href="#act-special">每日登录领取</a></td><td class='matrix-note'>6元，每日登录领加速道具</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-special">闭月羞花令</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-special">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-special">活跃获取</a></td><td class='matrix-note'>128元/22元口径需后续核对，主奖励为貂蝉及资源</td></tr><tr><td class='matrix-group'>第二日活动</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-same_stage">同台竞技</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-same_stage">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-same_stage">武将养成</a></td><td class='matrix-note'>赵云、貂蝉获得/品质提升返利</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-three_lu_bu">三英战吕布</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-three_lu_bu">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-three_lu_bu">挑战活动</a></td><td class='matrix-note'>挑战吕布获得装备锻造石、资源</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-troop_pack">兵种/月礼包</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-troop_pack">新增</a></td><td class="matrix-cell empty"></td><td class="matrix-cell info"><a class="matrix-link" href="#act-troop_pack">礼包组</a></td><td class='matrix-note'>30/68/128/328/648元兵种与资源礼包</td></tr><tr><td class='matrix-group'>第三日/赛季</td><td class='matrix-name'><a class="matrix-link name-link" href="#act-season">群雄逐鹿</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-season">新增</a></td><td class="matrix-cell info"><a class="matrix-link" href="#act-season">赛季日历</a></td><td class='matrix-note'>同盟排名、州府争夺、赛季战令、赛季任务等</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-qixi">七夕节活动</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell new"><a class="matrix-link" href="#act-qixi">新增</a></td><td class="matrix-cell info"><a class="matrix-link" href="#act-qixi">节日活动</a></td><td class='matrix-note'>免费资源礼包、648外观礼包</td></tr><tr><td class='matrix-group'></td><td class='matrix-name'><a class="matrix-link name-link" href="#act-hospital_pack">治疗站礼包</a></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell empty"></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-hospital_pack">触发</a></td><td class="matrix-cell trigger"><a class="matrix-link" href="#act-hospital_pack">有伤兵时</a></td><td class='matrix-note'>30-648元士兵礼包</td></tr></tbody></table>
+    </div>
+    
+    </section>
+
+    <section id="time-index">
+      <h2>时间索引</h2>
+      <div class="time-nav">
+        <a href="#d1"><b>首日</b><span>第2-6章 / 火炉2-8级</span></a>
+        <a href="#d2"><b>第二日</b><span>火炉约10级</span></a>
+        <a href="#d3"><b>第三日</b><span>火炉约11级</span></a>
+        <a href="#persistent"><b>持续/触发</b><span>充值后、持续存在、条件触发</span></a>
+      </div>
+    </section>
+
+    
+    <section class="time-block" id="d1">
+      <div class="time-block-title">
+        <div>
+          <span>第2-6章 / 火炉2-8级</span>
+          <h2>首日</h2>
+        </div>
+        <p>核心是新手主线、武将获得、商城和首批付费入口集中出现。</p>
+      </div>
+      <div class="activity-grid">
+    <article class="activity-card" id="act-invite">
+      <div class="activity-head">
+        <div>
+          <h3>邀友同行</h3>
+          <span>邀请活动 · 免费/社交</span>
+        </div>
+        <em>首日早期，火炉2级附近</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>引导阶段弹出</dd></div>
+        <div><dt>内容</dt><dd>邀请好友获得元宝，后续奖励要求被邀请玩家达到指定等级。</dd></div>
+        <div><dt>R0记录</dt><dd>可以参与，但依赖好友配合。</dd></div>
+        <div><dt>R3记录</dt><dd>不是核心购买点，更偏裂变入口。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_010.jpg" data-title="邀友同行">
+        <img src="assets/screens/img_010.jpg" alt="邀友同行" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>邀友同行</strong>
+        <span>邀请活动 · 免费/社交</span>
+        <em>邀请好友领取元宝，后续档位要求好友等级</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-recruit">
+      <div class="activity-head">
+        <div>
+          <h3>招贤馆/抽卡</h3>
+          <span>功能解锁 · 免费抽卡+抽卡礼包触发</span>
+        </div>
+        <em>首日第3章，火炉4级</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>建造招贤馆后开启</dd></div>
+        <div><dt>内容</dt><dd>必得关银屏，后续抽卡达到一定数量会触发招募相关礼包。</dd></div>
+        <div><dt>R0记录</dt><dd>早期给到明确武将获得体验。</dd></div>
+        <div><dt>R3记录</dt><dd>可承接招募令、武将碎片等付费内容。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_020.jpg" data-title="出征队列">
+        <img src="assets/screens/img_020.jpg" alt="出征队列" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>出征队列</strong>
+        <span>功能礼包 · 18元</span>
+        <em>解锁出征队列及资源</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-first_charge">
+      <div class="activity-head">
+        <div>
+          <h3>首充赵云</h3>
+          <span>首充 · 任意金额</span>
+        </div>
+        <em>首日第4章，赵云剧情后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>赵云加入战斗并获胜后消失，弹出首充</dd></div>
+        <div><dt>内容</dt><dd>必得赵云，次日登录领取赵云碎片，并附带元宝、资源、加速等。</dd></div>
+        <div><dt>R0记录</dt><dd>能看到强将与剧情承接，但需要付费获得。</dd></div>
+        <div><dt>R3记录</dt><dd>首日最明确的低门槛角色付费点。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_009.jpg" data-title="首充赵云">
+        <img src="assets/screens/img_009.jpg" alt="首充赵云" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首充赵云</strong>
+        <span>首充 · 任意金额</span>
+        <em>赵云、元宝、加速、资源等奖励</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-shop">
+      <div class="activity-head">
+        <div>
+          <h3>商城</h3>
+          <span>商城入口 · 12/25/50元等</span>
+        </div>
+        <em>首日第4章后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>首充出现同期开放</dd></div>
+        <div><dt>内容</dt><dd>建筑队列、超级月卡、周卡、元宝直购等。</dd></div>
+        <div><dt>R0记录</dt><dd>开始接触效率和资源付费入口。</dd></div>
+        <div><dt>R3记录</dt><dd>功能、月卡、元宝直购构成基础购买区。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_008.jpg" data-title="第二建造队列">
+        <img src="assets/screens/img_008.jpg" alt="第二建造队列" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>第二建造队列</strong>
+        <span>功能礼包 · 12元</span>
+        <em>获得第二建造队列及资源</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_018.jpg" data-title="超级月卡/加速周卡">
+        <img src="assets/screens/img_018.jpg" alt="超级月卡/加速周卡" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>超级月卡/加速周卡</strong>
+        <span>月卡/周卡 · 50元/25元</span>
+        <em>元宝、VIP值、资源、加速</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_014.jpg" data-title="双倍元宝">
+        <img src="assets/screens/img_014.jpg" alt="双倍元宝" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>双倍元宝</strong>
+        <span>元宝直购 · 6-648元</span>
+        <em>首购双倍元宝</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-nobility">
+      <div class="activity-head">
+        <div>
+          <h3>爵位</h3>
+          <span>充值成长/特权 · 累计充值提升</span>
+        </div>
+        <em>首日第4章后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>商城与首充同期开放</dd></div>
+        <div><dt>内容</dt><dd>加速建造、提升资源获取、解锁爵位商店、提升每日礼包福利、购买专属礼包。</dd></div>
+        <div><dt>R0记录</dt><dd>能看到充值成长线和特权内容。</dd></div>
+        <div><dt>R3记录</dt><dd>提供累计充值后的身份与效率目标。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_011.jpg" data-title="首日体验_009_r134_c11.png">
+        <img src="assets/screens/img_011.jpg" alt="首日体验_009_r134_c11.png" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首日体验_009_r134_c11.png</strong>
+        <span>截图 · </span>
+        <em></em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_012.jpg" data-title="首日体验_015_r332_c11.png">
+        <img src="assets/screens/img_012.jpg" alt="首日体验_015_r332_c11.png" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首日体验_015_r332_c11.png</strong>
+        <span>截图 · </span>
+        <em></em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_013.jpg" data-title="首日体验_020_r497_c11.png">
+        <img src="assets/screens/img_013.jpg" alt="首日体验_020_r497_c11.png" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首日体验_020_r497_c11.png</strong>
+        <span>截图 · </span>
+        <em></em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-seven_login">
+      <div class="activity-head">
+        <div>
+          <h3>七日登录</h3>
+          <span>登录活动 · 免费</span>
+        </div>
+        <em>首日火炉5级后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>升级火炉后出现</dd></div>
+        <div><dt>内容</dt><dd>第2天貂蝉，第7天郭嘉，并配有登录奖励。</dd></div>
+        <div><dt>R0记录</dt><dd>免费长期目标明确。</dd></div>
+        <div><dt>R3记录</dt><dd>可作为后续武将养成和碎片付费承接。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_029.jpg" data-title="七日登录">
+        <img src="assets/screens/img_029.jpg" alt="七日登录" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>七日登录</strong>
+        <span>登录活动 · 免费</span>
+        <em>第2天貂蝉，第7天郭嘉</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-seven_task">
+      <div class="activity-head">
+        <div>
+          <h3>七日任务</h3>
+          <span>首周任务 · 免费+活跃</span>
+        </div>
+        <em>首日第5章，火炉5级</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>第五章开放</dd></div>
+        <div><dt>内容</dt><dd>活跃获得貂蝉、小乔碎片等。</dd></div>
+        <div><dt>R0记录</dt><dd>提供首周活跃目标。</dd></div>
+        <div><dt>R3记录</dt><dd>可与武将养成和活动礼包形成承接。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_024.jpg" data-title="初出茅庐">
+        <img src="assets/screens/img_024.jpg" alt="初出茅庐" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>初出茅庐</strong>
+        <span>新手任务 · 活动内</span>
+        <em>完成任务领取资源、道具、碎片</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-special">
+      <div class="activity-head">
+        <div>
+          <h3>特惠活动</h3>
+          <span>活动合集 · 6/22/128元等</span>
+        </div>
+        <em>首日火炉6级后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>解锁世界、烽火台、同盟后出现</dd></div>
+        <div><dt>内容</dt><dd>闭月羞花令、七日尊享令等活跃/登录付费内容。</dd></div>
+        <div><dt>R0记录</dt><dd>能看到活动合集与免费/付费奖励并存。</dd></div>
+        <div><dt>R3记录</dt><dd>低价战令和角色主题战令承接较清晰。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_021.jpg" data-title="七日尊享令">
+        <img src="assets/screens/img_021.jpg" alt="七日尊享令" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>七日尊享令</strong>
+        <span>战令/通行证 · 6元</span>
+        <em>每日登录领取加速等道具</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_022.jpg" data-title="闭月羞花令">
+        <img src="assets/screens/img_022.jpg" alt="闭月羞花令" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>闭月羞花令</strong>
+        <span>战令/通行证 · 22元</span>
+        <em>活跃获得貂蝉及资源</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-limited_pack">
+      <div class="activity-head">
+        <div>
+          <h3>限时礼包</h3>
+          <span>礼包组 · 多见30元，也有更高档</span>
+        </div>
+        <em>首日多节点</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>升级、抽卡、成长、训练等条件触发</dd></div>
+        <div><dt>内容</dt><dd>经验、加速、招募、武将碎片、资源等。</dd></div>
+        <div><dt>R0记录</dt><dd>在升级与资源需求出现时会频繁看到。</dd></div>
+        <div><dt>R3记录</dt><dd>作为阶段性补给购买点。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_007.jpg" data-title="传说神将礼包">
+        <img src="assets/screens/img_007.jpg" alt="传说神将礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>传说神将礼包</strong>
+        <span>限时礼包 · 30元</span>
+        <em>传奇武将碎片、资源、加速等</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_015.jpg" data-title="成长礼包">
+        <img src="assets/screens/img_015.jpg" alt="成长礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>成长礼包</strong>
+        <span>礼包组 · 30元</span>
+        <em>成长、经验、资源、加速类礼包</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_016.jpg" data-title="训练/资源礼包">
+        <img src="assets/screens/img_016.jpg" alt="训练/资源礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>训练/资源礼包</strong>
+        <span>礼包组 · 30元</span>
+        <em>军队训练、钥匙、资源礼包</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_017.jpg" data-title="训练/钥匙/资源礼包">
+        <img src="assets/screens/img_017.jpg" alt="训练/钥匙/资源礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>训练/钥匙/资源礼包</strong>
+        <span>礼包组 · 30元</span>
+        <em>军队训练、钥匙、资源礼包</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-daily_deal">
+      <div class="activity-head">
+        <div>
+          <h3>每日特惠</h3>
+          <span>每日礼包 · 6/12/18元</span>
+        </div>
+        <em>充值后/首日可见</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>充值后或活动入口中出现</dd></div>
+        <div><dt>内容</dt><dd>郭嘉碎片、资源、养成材料等。</dd></div>
+        <div><dt>R0记录</dt><dd>主要作为可见的每日付费入口。</dd></div>
+        <div><dt>R3记录</dt><dd>连续小额购买路径较明确。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_019.jpg" data-title="每日特惠">
+        <img src="assets/screens/img_019.jpg" alt="每日特惠" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>每日特惠</strong>
+        <span>每日礼包 · 6/12/18元</span>
+        <em>郭嘉碎片及养成资源</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-cumulative">
+      <div class="activity-head">
+        <div>
+          <h3>累计充值</h3>
+          <span>累计充值活动 · 68/160/270/400元档</span>
+        </div>
+        <em>充值后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>充值后出现</dd></div>
+        <div><dt>内容</dt><dd>郭嘉、郭嘉碎片、郭嘉专属武器碎片、传奇装备。</dd></div>
+        <div><dt>R0记录</dt><dd>主要作为充值目标展示。</dd></div>
+        <div><dt>R3记录</dt><dd>中付费承接目标明确。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_025.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_025.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 68元档</span>
+        <em>郭嘉相关奖励</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_026.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_026.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 160元档</span>
+        <em>郭嘉相关奖励</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_027.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_027.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 270元档</span>
+        <em>郭嘉专属武器碎片</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_028.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_028.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 400元档</span>
+        <em>郭嘉、传奇装备</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-pride">
+      <div class="activity-head">
+        <div>
+          <h3>傲视群雄</h3>
+          <span>战力活动 · 活动内</span>
+        </div>
+        <em>首日火炉6级后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>活动入口新增</dd></div>
+        <div><dt>内容</dt><dd>冲战力获得元宝、加速道具等奖励。</dd></div>
+        <div><dt>R0记录</dt><dd>提供战力提升目标。</dd></div>
+        <div><dt>R3记录</dt><dd>可与战力礼包和养成购买形成关联。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_023.jpg" data-title="傲视群雄">
+        <img src="assets/screens/img_023.jpg" alt="傲视群雄" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>傲视群雄</strong>
+        <span>战力活动 · 活动内</span>
+        <em>提升战力领取元宝与资源</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    </div>
+    </section>
+    
+    <section class="time-block" id="d2">
+      <div class="time-block-title">
+        <div>
+          <span>火炉约10级</span>
+          <h2>第二日</h2>
+        </div>
+        <p>从主线推进转向活动挑战、武将养成返利和资源/兵种礼包承接。</p>
+      </div>
+      <div class="activity-grid">
+    <article class="activity-card" id="act-same_stage">
+      <div class="activity-head">
+        <div>
+          <h3>同台竞技</h3>
+          <span>武将养成返利 · 活动内</span>
+        </div>
+        <em>第二日</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>第二日活动出现</dd></div>
+        <div><dt>内容</dt><dd>获得赵云、貂蝉可领取元宝，提升武将品质可继续领取。</dd></div>
+        <div><dt>R0记录</dt><dd>能看到武将获得与养成目标。</dd></div>
+        <div><dt>R3记录</dt><dd>承接已购买或已获得武将的后续养成。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_003.jpg" data-title="同台竞技">
+        <img src="assets/screens/img_003.jpg" alt="同台竞技" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>同台竞技</strong>
+        <span>武将养成活动 · 活动内</span>
+        <em>获得/养成赵云、貂蝉领取元宝</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_004.jpg" data-title="同台竞技">
+        <img src="assets/screens/img_004.jpg" alt="同台竞技" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>同台竞技</strong>
+        <span>武将养成活动 · 活动内</span>
+        <em>获得/养成赵云、貂蝉领取元宝</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-three_lu_bu">
+      <div class="activity-head">
+        <div>
+          <h3>三英战吕布</h3>
+          <span>挑战活动 · 活动内</span>
+        </div>
+        <em>第二日</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>第二日活动出现</dd></div>
+        <div><dt>内容</dt><dd>挑战吕布获得装备锻造石、资源等奖励。</dd></div>
+        <div><dt>R0记录</dt><dd>活动目标较直观。</dd></div>
+        <div><dt>R3记录</dt><dd>可与装备、战力养成关联。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_002.jpg" data-title="三英战吕布">
+        <img src="assets/screens/img_002.jpg" alt="三英战吕布" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>三英战吕布</strong>
+        <span>挑战活动 · 活动内</span>
+        <em>挑战吕布获取装备锻造石、资源等奖励</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-troop_pack">
+      <div class="activity-head">
+        <div>
+          <h3>兵种/月礼包</h3>
+          <span>礼包组 · 30/68/128/328/648元</span>
+        </div>
+        <em>第二日</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>第二日礼包出现</dd></div>
+        <div><dt>内容</dt><dd>兵种、资源、养成材料。</dd></div>
+        <div><dt>R0记录</dt><dd>可见高价礼包开始出现。</dd></div>
+        <div><dt>R3记录</dt><dd>资源和兵种成长的付费承接。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_005.jpg" data-title="兵种礼包">
+        <img src="assets/screens/img_005.jpg" alt="兵种礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>兵种礼包</strong>
+        <span>礼包组 · 30/68/128元</span>
+        <em>兵种、资源、养成材料</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_006.jpg" data-title="兵种礼包">
+        <img src="assets/screens/img_006.jpg" alt="兵种礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>兵种礼包</strong>
+        <span>礼包组 · 328/648元</span>
+        <em>兵种、资源、养成材料</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    </div>
+    </section>
+    
+    <section class="time-block" id="d3">
+      <div class="time-block-title">
+        <div>
+          <span>火炉约11级</span>
+          <h2>第三日</h2>
+        </div>
+        <p>赛季相关玩法露出，同时出现节日、外观、治疗站礼包等内容。</p>
+      </div>
+      <div class="activity-grid">
+    <article class="activity-card" id="act-season">
+      <div class="activity-head">
+        <div>
+          <h3>群雄逐鹿/赛季玩法</h3>
+          <span>赛季活动 · 活动内/赛季战令</span>
+        </div>
+        <em>第三日</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>第三日活动日历露出</dd></div>
+        <div><dt>内容</dt><dd>同盟排名、州府争夺、州府庆功宴、赛季战令、赛季任务、天子皇权。</dd></div>
+        <div><dt>R0记录</dt><dd>长期目标开始增多。</dd></div>
+        <div><dt>R3记录</dt><dd>赛季竞争和战令提供后续投入方向。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_001.jpg" data-title="赛季日历">
+        <img src="assets/screens/img_001.jpg" alt="赛季日历" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>赛季日历</strong>
+        <span>赛季活动 · 活动内</span>
+        <em>群雄逐鹿、州府争夺、赛季任务等节点</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-qixi">
+      <div class="activity-head">
+        <div>
+          <h3>七夕节活动</h3>
+          <span>节日活动 · 免费资源礼包/648外观礼包</span>
+        </div>
+        <em>第三日</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>节日活动入口</dd></div>
+        <div><dt>内容</dt><dd>免费资源礼包和高价外观礼包。</dd></div>
+        <div><dt>R0记录</dt><dd>可获得免费礼包。</dd></div>
+        <div><dt>R3记录</dt><dd>外观礼包面向有展示需求的玩家。</dd></div>
+      </dl>
+      <div class="card-shots"><div class="empty-shot">当前Excel未放入对应截图，先按第一张表文字记录。</div></div>
+    </article>
+    
+    <article class="activity-card" id="act-hospital_pack">
+      <div class="activity-head">
+        <div>
+          <h3>治疗站礼包</h3>
+          <span>条件触发礼包 · 30-648元</span>
+        </div>
+        <em>第三日，有伤兵时</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>存在伤兵时可购买</dd></div>
+        <div><dt>内容</dt><dd>直接购买士兵相关礼包，只有有伤兵时能买。</dd></div>
+        <div><dt>R0记录</dt><dd>与战损状态绑定。</dd></div>
+        <div><dt>R3记录</dt><dd>偏战后补给和恢复效率。</dd></div>
+      </dl>
+      <div class="card-shots"><div class="empty-shot">当前Excel未放入对应截图，先按第一张表文字记录。</div></div>
+    </article>
+    </div>
+    </section>
+    
+    <section class="time-block" id="persistent">
+      <div class="time-block-title">
+        <div>
+          <span>非单一时点</span>
+          <h2>持续/充值后</h2>
+        </div>
+        <p>这部分更适合标记为持续存在、充值后出现或条件触发，不宜强行按图片顺序归到某一天。</p>
+      </div>
+      <div class="activity-grid">
+    <article class="activity-card" id="act-persistent-cumulative">
+      <div class="activity-head">
+        <div>
+          <h3>累计充值</h3>
+          <span>累计充值活动 · 68/160/270/400元档</span>
+        </div>
+        <em>充值后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>充值后出现</dd></div>
+        <div><dt>内容</dt><dd>郭嘉、郭嘉碎片、郭嘉专属武器碎片、传奇装备。</dd></div>
+        <div><dt>R0记录</dt><dd>主要作为充值目标展示。</dd></div>
+        <div><dt>R3记录</dt><dd>中付费承接目标明确。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_025.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_025.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 68元档</span>
+        <em>郭嘉相关奖励</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_026.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_026.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 160元档</span>
+        <em>郭嘉相关奖励</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_027.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_027.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 270元档</span>
+        <em>郭嘉专属武器碎片</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_028.jpg" data-title="累计充值福利">
+        <img src="assets/screens/img_028.jpg" alt="累计充值福利" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>累计充值福利</strong>
+        <span>累计充值 · 400元档</span>
+        <em>郭嘉、传奇装备</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-persistent-daily_deal">
+      <div class="activity-head">
+        <div>
+          <h3>每日特惠</h3>
+          <span>每日礼包 · 6/12/18元</span>
+        </div>
+        <em>充值后/首日可见</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>充值后或活动入口中出现</dd></div>
+        <div><dt>内容</dt><dd>郭嘉碎片、资源、养成材料等。</dd></div>
+        <div><dt>R0记录</dt><dd>主要作为可见的每日付费入口。</dd></div>
+        <div><dt>R3记录</dt><dd>连续小额购买路径较明确。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_019.jpg" data-title="每日特惠">
+        <img src="assets/screens/img_019.jpg" alt="每日特惠" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>每日特惠</strong>
+        <span>每日礼包 · 6/12/18元</span>
+        <em>郭嘉碎片及养成资源</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-persistent-nobility">
+      <div class="activity-head">
+        <div>
+          <h3>爵位</h3>
+          <span>充值成长/特权 · 累计充值提升</span>
+        </div>
+        <em>首日第4章后</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>商城与首充同期开放</dd></div>
+        <div><dt>内容</dt><dd>加速建造、提升资源获取、解锁爵位商店、提升每日礼包福利、购买专属礼包。</dd></div>
+        <div><dt>R0记录</dt><dd>能看到充值成长线和特权内容。</dd></div>
+        <div><dt>R3记录</dt><dd>提供累计充值后的身份与效率目标。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_011.jpg" data-title="首日体验_009_r134_c11.png">
+        <img src="assets/screens/img_011.jpg" alt="首日体验_009_r134_c11.png" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首日体验_009_r134_c11.png</strong>
+        <span>截图 · </span>
+        <em></em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_012.jpg" data-title="首日体验_015_r332_c11.png">
+        <img src="assets/screens/img_012.jpg" alt="首日体验_015_r332_c11.png" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首日体验_015_r332_c11.png</strong>
+        <span>截图 · </span>
+        <em></em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_013.jpg" data-title="首日体验_020_r497_c11.png">
+        <img src="assets/screens/img_013.jpg" alt="首日体验_020_r497_c11.png" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>首日体验_020_r497_c11.png</strong>
+        <span>截图 · </span>
+        <em></em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-monthly_card">
+      <div class="activity-head">
+        <div>
+          <h3>月卡/周卡</h3>
+          <span>长期收益 · 50元超级月卡 / 25元加速周卡</span>
+        </div>
+        <em>首日商城</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>商城开放后可见</dd></div>
+        <div><dt>内容</dt><dd>投放元宝、VIP值、银木粮铁、加速道具等。</dd></div>
+        <div><dt>R0记录</dt><dd>主要作为可见付费入口。</dd></div>
+        <div><dt>R3记录</dt><dd>适合持续投入，价值表达较直接。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_018.jpg" data-title="超级月卡/加速周卡">
+        <img src="assets/screens/img_018.jpg" alt="超级月卡/加速周卡" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>超级月卡/加速周卡</strong>
+        <span>月卡/周卡 · 50元/25元</span>
+        <em>元宝、VIP值、资源、加速</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-yuanbao">
+      <div class="activity-head">
+        <div>
+          <h3>双倍元宝</h3>
+          <span>元宝直购 · 6-648元</span>
+        </div>
+        <em>首日商城</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>商城开放后可见</dd></div>
+        <div><dt>内容</dt><dd>各档首购双倍元宝。</dd></div>
+        <div><dt>R0记录</dt><dd>主要是付费货币入口。</dd></div>
+        <div><dt>R3记录</dt><dd>适合已有明确付费意愿的玩家。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_014.jpg" data-title="双倍元宝">
+        <img src="assets/screens/img_014.jpg" alt="双倍元宝" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>双倍元宝</strong>
+        <span>元宝直购 · 6-648元</span>
+        <em>首购双倍元宝</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    
+    <article class="activity-card" id="act-upgrade_pack">
+      <div class="activity-head">
+        <div>
+          <h3>城镇建设/升级礼包</h3>
+          <span>升级触发礼包 · 30元</span>
+        </div>
+        <em>首日火炉升级节点</em>
+      </div>
+      <dl class="meta">
+        <div><dt>触发</dt><dd>火炉或城镇等级达到8/10级等</dd></div>
+        <div><dt>内容</dt><dd>资源、加速、道具。</dd></div>
+        <div><dt>R0记录</dt><dd>在升级阶段可见。</dd></div>
+        <div><dt>R3记录</dt><dd>匹配升级阶段资源/加速需求。</dd></div>
+      </dl>
+      <div class="card-shots">
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_030.jpg" data-title="8级城镇建设礼包">
+        <img src="assets/screens/img_030.jpg" alt="8级城镇建设礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>8级城镇建设礼包</strong>
+        <span>升级礼包 · 30元</span>
+        <em>资源、加速、道具</em>
+      </figcaption>
+    </figure>
+    
+    <figure class="shot">
+      <button class="shot-open" data-src="assets/screens/img_031.jpg" data-title="10级城镇建设礼包">
+        <img src="assets/screens/img_031.jpg" alt="10级城镇建设礼包" loading="lazy">
+      </button>
+      <figcaption>
+        <strong>10级城镇建设礼包</strong>
+        <span>升级礼包 · 30元</span>
+        <em>资源、加速、道具</em>
+      </figcaption>
+    </figure>
+    </div>
+    </article>
+    </div>
+    </section>
+    
+
+    <section id="activities">
+      <h2>活动清单</h2>
+      <table class=""><thead><tr><th>活动/系统</th><th>出现时机</th><th>类型</th><th>主要内容</th><th>主要动机</th><th>备注</th></tr></thead><tbody><tr><td>邀友同行</td><td>首日/火炉2级前后</td><td>邀请活动</td><td>邀请好友、好友达到等级领取元宝</td><td>社交裂变</td><td>R0可参与，达成依赖外部好友</td></tr><tr><td>抽卡/招贤馆</td><td>首日第3章/火炉4级</td><td>功能解锁</td><td>必得关银屏，后续抽卡次数触发礼包</td><td>武将获取</td><td>与武将养成和限时礼包关联</td></tr><tr><td>首充赵云</td><td>首日第4章/火炉4级</td><td>首充</td><td>任意金额必得赵云，次日登录领10个碎片</td><td>强将获取</td><td>剧情体验后弹出</td></tr><tr><td>商城</td><td>首日第4章后</td><td>商城</td><td>建筑队列、月卡/周卡、元宝直购</td><td>效率/资源</td><td>早期核心付费入口</td></tr><tr><td>爵位</td><td>首日第4章后</td><td>成长特权</td><td>累计充值提升爵位，解锁特权与礼包</td><td>身份/效率/福利</td><td>包含建造加速、资源获取、爵位商店等</td></tr><tr><td>七日登录</td><td>首日火炉5级</td><td>登录活动</td><td>第2天貂蝉，第7天郭嘉</td><td>留存/武将</td><td>免费目标较明确</td></tr><tr><td>七日任务</td><td>首日第5章/火炉5级</td><td>任务活动</td><td>活跃获得貂蝉、小乔碎片</td><td>留存/碎片</td><td>与首周目标绑定</td></tr><tr><td>特惠活动</td><td>首日火炉6级后</td><td>活动合集</td><td>闭月羞花令、七日尊享令等</td><td>战令/活跃</td><td>包含低价战令</td></tr><tr><td>累计充值</td><td>充值后</td><td>累计充值</td><td>68/160/270/400元档，郭嘉、专武、装备</td><td>累充目标</td><td>R3以上承接明显</td></tr><tr><td>每日特惠</td><td>充值后/首日</td><td>每日礼包</td><td>6/12/18元获得郭嘉碎片</td><td>连续小额</td><td>适合每日购买</td></tr><tr><td>同台竞技</td><td>第二日</td><td>武将养成活动</td><td>获得赵云、貂蝉及提升品质领元宝</td><td>养成返利</td><td>承接已获得武将</td></tr><tr><td>三英战吕布</td><td>第二日</td><td>挑战活动</td><td>挑战吕布获得装备锻造石、资源</td><td>挑战/资源</td><td>活动感较强</td></tr><tr><td>群雄逐鹿</td><td>第三日</td><td>赛季活动</td><td>同盟排名、州府争夺、赛季任务等</td><td>赛季竞争</td><td>长期目标露出</td></tr><tr><td>七夕节活动</td><td>第三日</td><td>节日活动</td><td>免费资源礼包、648外观礼包</td><td>节日/外观</td><td>包含高价外观</td></tr><tr><td>治疗站礼包</td><td>第三日/有伤兵时</td><td>触发礼包</td><td>30-648元购买士兵礼包</td><td>战后补给</td><td>触发条件是有伤兵</td></tr></tbody></table>
+    </section>
+
+    <section id="sku">
+      <h2>礼包与付费点整理</h2>
+      <table class=""><thead><tr><th>价格/档位</th><th>名称/示例</th><th>类型</th><th>主要投放</th><th>出现位置</th></tr></thead><tbody><tr><td>12元</td><td>第二建造队列</td><td>功能</td><td>建筑效率、资源</td><td>首日商城/前期</td></tr><tr><td>18元</td><td>出征队列</td><td>功能</td><td>出征队列、资源</td><td>首日限时礼包</td></tr><tr><td>25元</td><td>加速周卡</td><td>周卡</td><td>加速道具</td><td>首日商城</td></tr><tr><td>30元</td><td>赵云/成长/资源/升级礼包</td><td>礼包</td><td>碎片、经验、资源、加速</td><td>首日多处出现</td></tr><tr><td>50元</td><td>超级月卡</td><td>月卡</td><td>元宝、VIP值、资源</td><td>首日商城</td></tr><tr><td>6元</td><td>七日尊享令/每日特惠低档</td><td>战令/每日礼包</td><td>加速、碎片、资源</td><td>首日/充值后</td></tr><tr><td>22元</td><td>闭月羞花令</td><td>战令</td><td>貂蝉、资源、加速</td><td>首日特惠活动</td></tr><tr><td>68元</td><td>累计充值/兵种礼包</td><td>累充/礼包</td><td>郭嘉、兵种、资源</td><td>充值后/第二日</td></tr><tr><td>128元</td><td>闭月羞花令或吕布礼包/发展基金</td><td>战令/基金/武将</td><td>貂蝉、吕布、元宝返利</td><td>首日</td></tr><tr><td>328/648元</td><td>兵种礼包/外观礼包/治疗站礼包</td><td>高价礼包</td><td>兵种、外观、士兵补给</td><td>第二日/第三日</td></tr></tbody></table>
+    </section>
+
+    <section id="feel">
+      <h2>主观感受记录</h2>
+      <div class="two-col">
+        <div class="note">
+          <h3>R0体验观察</h3>
+          <p>首日免费内容较密，包含剧情、武将、七日登录、七日任务、活动奖励等。付费入口出现也较早，尤其首充、队列、升级礼包、资源礼包会较快进入视野。</p>
+          <p>第二日后，体验重心从主线推进逐步转向活动挑战、资源获取和赛季目标。</p>
+        </div>
+        <div class="note">
+          <h3>R3体验观察</h3>
+          <p>购买路径相对连续：首充武将、队列效率、月卡/周卡、每日特惠、战令、累计充值、武将养成返利。</p>
+          <p>首日到第三日价格层级逐步扩展，从6/12/18/30元到128元、328元、648元。</p>
+        </div>
+      </div>
+      <br>
+      <table class=""><thead><tr><th>感受类别</th><th>对应活动</th><th>主观记录</th></tr></thead><tbody><tr><td>强角色获取</td><td>首充赵云、累计充值郭嘉、七日登录貂蝉/郭嘉</td><td>角色明确、剧情承接较强，容易形成目标感。</td></tr><tr><td>效率提升</td><td>建筑队列、出征队列、月卡/周卡</td><td>付费点与早期建造、出征、资源效率直接相关。</td></tr><tr><td>长期返利</td><td>发展基金、月卡、周卡、七日尊享令、闭月羞花令</td><td>以持续领取和活跃目标降低单次购买感。</td></tr><tr><td>痛点补给</td><td>升级礼包、资源礼包、治疗站礼包</td><td>与资源/升级/伤兵需求绑定，吸引力来自当下缺口。</td></tr><tr><td>竞争承接</td><td>傲视群雄、同台竞技、群雄逐鹿</td><td>将战力、武将养成、赛季目标转化为奖励追求。</td></tr><tr><td>社交/节日</td><td>邀友同行、七夕节活动、外观礼包</td><td>主题明确，但转化取决于社交条件和外观展示价值。</td></tr></tbody></table>
+    </section>
+
+  </main>
+  <div class="modal" id="modal">
+    <div class="modal-inner">
+      <div class="modal-bar">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-actions">
+          <span id="zoomLabel">100%</span>
+          <button type="button" id="zoomReset">重置</button>
+          <button type="button" id="modalClose">关闭</button>
+        </div>
+      </div>
+      <div class="modal-stage" id="modalStage">
+        <img id="modalImg" alt="">
+      </div>
+    </div>
+  </div>
+  <footer>素材来源：冰河时代活动.xlsx · 本页为本地静态展示文件</footer>
+  <script>
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalStage = document.getElementById('modalStage');
+    const zoomLabel = document.getElementById('zoomLabel');
+    const zoomReset = document.getElementById('zoomReset');
+    const modalClose = document.getElementById('modalClose');
+    let zoom = 1;
+    let panX = 0;
+    let panY = 0;
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let startPanX = 0;
+    let startPanY = 0;
+    function applyZoom() {
+      modalImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+      zoomLabel.textContent = Math.round(zoom * 100) + '%';
+    }
+    function resetZoom() {
+      zoom = 1;
+      panX = 0;
+      panY = 0;
+      applyZoom();
+    }
+    function closeModal() {
+      modal.classList.remove('active');
+      modalImg.removeAttribute('src');
+      resetZoom();
+    }
+    document.querySelectorAll('.shot-open').forEach(btn => {
+      btn.addEventListener('click', () => {
+        resetZoom();
+        modalImg.src = btn.dataset.src;
+        modalImg.alt = btn.dataset.title;
+        modalTitle.textContent = btn.dataset.title;
+        modal.classList.add('active');
+      });
+    });
+    modalStage.addEventListener('wheel', e => {
+      e.preventDefault();
+      const nextZoom = Math.min(5, Math.max(0.5, zoom * (e.deltaY < 0 ? 1.12 : 0.88)));
+      if (nextZoom === zoom) return;
+      zoom = nextZoom;
+      if (zoom <= 1) {
+        panX = 0;
+        panY = 0;
+      }
+      applyZoom();
+    }, { passive:false });
+    modalStage.addEventListener('pointerdown', e => {
+      if (zoom <= 1) return;
+      dragging = true;
+      modalStage.classList.add('dragging');
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      startPanX = panX;
+      startPanY = panY;
+      modalStage.setPointerCapture(e.pointerId);
+    });
+    modalStage.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      panX = startPanX + e.clientX - dragStartX;
+      panY = startPanY + e.clientY - dragStartY;
+      applyZoom();
+    });
+    function endDrag(e) {
+      dragging = false;
+      modalStage.classList.remove('dragging');
+      if (e && modalStage.hasPointerCapture(e.pointerId)) {
+        modalStage.releasePointerCapture(e.pointerId);
+      }
+    }
+    modalStage.addEventListener('pointerup', endDrag);
+    modalStage.addEventListener('pointercancel', endDrag);
+    modalStage.addEventListener('dblclick', resetZoom);
+    zoomReset.addEventListener('click', resetZoom);
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
